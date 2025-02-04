@@ -34,6 +34,12 @@ public class PlayerScript : MonoBehaviour
                 rb.linearVelocity = Vector3.zero; // Det�n la velocidad
                 rb.angularVelocity = Vector3.zero; // Det�n la rotaci�n
             }
+
+            AudioSource deadAudio = other.gameObject.GetComponent<AudioSource>();
+            if (deadAudio != null)
+            {
+                deadAudio.Play();
+            }
         }
     }
 
@@ -66,6 +72,12 @@ public class PlayerScript : MonoBehaviour
                 rb.AddForce(bounceDirection * bumperForce, ForceMode.Impulse);
 
                 Debug.Log($"Fuerza aplicada: {bounceDirection * bumperForce}, Dirección: {bounceDirection}");
+
+                AudioSource bumperAudio = collision.gameObject.GetComponent<AudioSource>();
+                if (bumperAudio != null)
+                {
+                    bumperAudio.Play();
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ public class FlipperScript : MonoBehaviour
     private float targetZRotation; // Rotación objetivo
     private Quaternion targetRotation; // Rotación calculada
     private bool isActive = false; // Indica si el flipper está activado
+    private bool hasPlayedSound = false;
 
     void Start()
     {
@@ -35,11 +36,23 @@ public class FlipperScript : MonoBehaviour
         {
             targetZRotation = hitZRotation;
             isActive = true; // Activar el flipper
+
+            // Reproducir sonido del flipper
+            if (!hasPlayedSound)
+            {
+                AudioSource flipperAudio = GetComponent<AudioSource>();
+                if (flipperAudio != null)
+                {
+                    flipperAudio.PlayOneShot(flipperAudio.clip);
+                }
+                hasPlayedSound = true; // Marcar que ya sonó
+            }
         }
         else
         {
             targetZRotation = baseZRotation;
             isActive = false; // Desactivar el flipper
+            hasPlayedSound = false;
         }
 
         // Calcular la rotación objetivo
@@ -67,6 +80,12 @@ public class FlipperScript : MonoBehaviour
                 playerRb.AddForce(forceDirection * flipperForce, ForceMode.Impulse);
 
                 Debug.Log($"Pelota golpeada por el flipper ({(isLeftFlipper ? "izquierdo" : "derecho")}). Dirección: {forceDirection}");
+
+                AudioSource audioKick = collision.gameObject.GetComponent<AudioSource>();
+                if (audioKick != null)
+                {
+                    audioKick.Play();
+                }
             }
         }
     }
