@@ -1,14 +1,19 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
     private Vector3 initialPosition; // Almacena la posición inicial de la pelota
+    private ScoreManager scoreManager; // Referencia al ScoreManager
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // Guarda la posición inicial de la pelota al iniciar el juego
         initialPosition = transform.position;
+
+        // Buscar el ScoreManager en la escena
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -77,6 +82,13 @@ public class PlayerScript : MonoBehaviour
                 if (bumperAudio != null)
                 {
                     bumperAudio.Play();
+                }
+
+                // Llamar al método OnBumperHit para actualizar el puntaje
+                if (scoreManager != null)
+                {
+                    Debug.Log("Llamar a OnBumperHit()");
+                    scoreManager.OnBumperHit();
                 }
             }
         }
