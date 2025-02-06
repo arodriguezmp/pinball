@@ -45,6 +45,13 @@ public class PlayerScript : MonoBehaviour
             {
                 deadAudio.Play();
             }
+
+            // Llamar al método OnDie para reducir el puntaje
+            if (scoreManager != null)
+            {
+                Debug.Log("Llamar a OnDie()");
+                scoreManager.OnDie();
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;  // Asegúrate de incluir esta librería para trabajar con TextMeshPro
+using UnityEngine.SceneManagement; // Importa SceneManager
 
 public class ScoreManager : MonoBehaviour
 {
@@ -11,6 +12,35 @@ public class ScoreManager : MonoBehaviour
     {
         score += 10; // Aumentar el puntaje por cada colisión con un bumper
         UpdateScoreText(); // Actualizar el texto del contador
+
+        // Verificar si el puntaje alcanzó o superó 200
+        if (score >= 200)
+        {
+            LoadNextLevel();
+        }
+    }
+
+    public void OnDie()
+    {
+        if (score < 100)
+        {
+            score = 0;
+        }
+        else{
+            score -= 100;
+        }
+        UpdateScoreText();
+    }
+
+    // Método para cambiar de nivel
+    private void LoadNextLevel()
+    {
+        Debug.Log("¡Has alcanzado 200 puntos! Cargando el siguiente nivel...");
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Obtener la escena actual
+        int nextSceneIndex = (currentSceneIndex == 3) ? 0 : currentSceneIndex + 1; // Si estamos en la escena 3, volver a 0
+
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     // Actualizar el texto en pantalla
@@ -19,4 +49,5 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("ACTUALIZAR CONTADOR");
         scoreText.text = "Score: " + score.ToString();
     }
+
 }
