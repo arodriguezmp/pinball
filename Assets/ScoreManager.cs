@@ -38,7 +38,7 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("¡Has alcanzado 200 puntos! Cargando el siguiente nivel...");
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // Obtener la escena actual
-        int nextSceneIndex = (currentSceneIndex == 3) ? 0 : currentSceneIndex + 1; // Si estamos en la escena 3, volver a 0
+        int nextSceneIndex = (currentSceneIndex == 5) ? 0 : currentSceneIndex + 1; // Si estamos en la escena 3, volver a 0
 
         SceneManager.LoadScene(nextSceneIndex);
     }

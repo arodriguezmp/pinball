@@ -7,6 +7,14 @@ public class MainMenuController : MonoBehaviour
     {
         // Cambia "GameScene" por el nombre de tu escena del juego
         Debug.Log("Cargando juego...");
+        SceneManager.LoadScene(2);
+
+    }
+
+    public void ShowControls()
+    {
+        // Cambia "GameScene" por el nombre de tu escena del juego
+        Debug.Log("Cargando juego...");
         SceneManager.LoadScene(1);
 
     }
